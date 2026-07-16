@@ -1,0 +1,4 @@
+/.electron-builder-cache
+/.electron-cache
+/node_modules
+/release

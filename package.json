@@ -1,0 +1,56 @@
+{
+  "name": "apdu-parser-desktop",
+  "version": "1.0.0",
+  "private": true,
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"wait-on tcp:5177 && electron .\"",
+    "build": "vue-tsc --noEmit && vite build && tsc -p tsconfig.electron.json",
+    "dist:win": "npm run build && electron-builder --win portable",
+    "dist:mac": "npm run build && electron-builder --mac dmg dir -c.mac.identity=null"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "5.2.4",
+    "vite": "6.3.5",
+    "vue": "3.5.22"
+  },
+  "devDependencies": {
+    "@types/node": "22.18.8",
+    "concurrently": "9.2.1",
+    "electron": "38.3.0",
+    "electron-builder": "26.0.12",
+    "typescript": "5.6.3",
+    "vue-tsc": "2.2.12",
+    "wait-on": "8.0.5"
+  },
+  "build": {
+    "appId": "com.apduparser.desktop",
+    "productName": "ApduParser",
+    "files": [
+      "dist/**",
+      "dist-electron/**",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "app.ico",
+        "to": "app.ico"
+      }
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": "portable",
+      "icon": "app.ico"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "dir"
+      ],
+      "category": "public.app-category.developer-tools",
+      "identity": null
+    }
+  }
+}
