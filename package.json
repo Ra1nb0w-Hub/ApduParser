@@ -49,6 +49,7 @@
         "dmg",
         "dir"
       ],
+      "icon": "app.icns",
       "category": "public.app-category.developer-tools",
       "identity": null
     }
