@@ -1,11 +1,11 @@
-name: Build macOS App
+name: Build macOS Apple Silicon App
 
 on:
   workflow_dispatch:
 
 jobs:
-  build-mac:
-    runs-on: macos-latest
+  build-mac-arm64:
+    runs-on: macos-14
 
     defaults:
       run:
@@ -25,8 +25,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build macOS app
-        run: npm run dist:mac
+      - name: Build macOS Apple Silicon app
+        run: npm run build && electron-builder --mac dmg dir --arm64 -c.mac.identity=null --publish never
 
       - name: Zip .app
         run: |
@@ -35,12 +35,12 @@ jobs:
             echo "ApduParser.app not found"
             exit 1
           fi
-          ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" release/ApduParser-macOS-app.zip
+          ditto -c -k --sequesterRsrc --keepParent "$APP_PATH" release/ApduParser-macOS-arm64-app.zip
 
-      - name: Upload macOS artifacts
+      - name: Upload macOS Apple Silicon artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: ApduParser-macOS
+          name: ApduParser-macOS-arm64
           path: |
-            ./release/*.dmg
-            ./release/ApduParser-macOS-app.zip
+            ./release/*arm64*.dmg
+            ./release/ApduParser-macOS-arm64-app.zip

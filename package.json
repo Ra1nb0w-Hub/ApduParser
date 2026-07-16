@@ -7,7 +7,7 @@
     "dev": "concurrently -k \"vite\" \"wait-on tcp:5177 && electron .\"",
     "build": "vue-tsc --noEmit && vite build && tsc -p tsconfig.electron.json",
     "dist:win": "npm run build && electron-builder --win portable",
-    "dist:mac": "npm run build && electron-builder --mac dmg dir -c.mac.identity=null"
+    "dist:mac": "npm run build && electron-builder --mac dmg dir -c.mac.identity=null --publish never"
   },
   "dependencies": {
     "@vitejs/plugin-vue": "5.2.4",
