@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "concurrently -k \"vite\" \"wait-on tcp:5177 && electron .\"",
     "build": "vue-tsc --noEmit && vite build && tsc -p tsconfig.electron.json",
-    "dist:win": "npm run build && electron-builder --win portable",
+    "dist:win": "npm run build && electron-builder --win dir",
     "dist:mac": "npm run build && electron-builder --mac dmg dir -c.mac.identity=null --publish never",
     "dist:mac:arm64": "npm run build && electron-builder --mac dmg dir --arm64 -c.mac.identity=null --publish never"
   },
